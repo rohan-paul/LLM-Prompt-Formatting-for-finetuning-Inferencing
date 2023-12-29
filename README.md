@@ -56,11 +56,12 @@ Be mindful of line breaks ( also end of text symbols if the LLM model has any in
 
 =======================================================
 
-# Prompt format of mistralai/Mixtral-8x7B-v0.1 model
+#  🔥 mistralai/Mixtral-8x7B-v0.1 🔥🔥
 
-This is a base model, therefore it doesn't need to be prompted in a specific way in order to get started with the model. If you want to use the instruct version of the model, you need to follow the template that is on the model card:
+https://huggingface.co/mistralai/Mixtral-8x7B-v0.1/discussions/22
 
-https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1#instruction-format
+
+"Mixtral-8x7B-v0.1" is a base model, therefore it doesn't need to be prompted in a specific way in order to get started with the model. If you want to use the instruct version of the model, you need to follow the template that is on the model card: https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1#instruction-format
 
 The template used to build a prompt for the Instruct model is defined as follows:
 
@@ -70,7 +71,66 @@ The template used to build a prompt for the Instruct model is defined as follows
 
 =======================================================
 
-## llama-2
+
+# 🔥 mistralai/Mistral-7B-Instruct-v0.1 🔥
+
+
+https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1#instruction-format
+
+
+Instruction format
+
+In order to leverage instruction fine-tuning, your prompt should be surrounded by [INST] and [/INST] tokens. The very first instruction should begin with a begin of sentence id. The next instructions should not. The assistant generation will be ended by the end-of-sentence token id.
+
+E.g.
+
+```
+text = "<s>[INST] What is your favourite condiment? [/INST]"
+
+"Well, I'm quite partial to a good squeeze of fresh lemon juice. It adds just the right amount of zesty flavour to whatever I'm cooking up in the kitchen!</s> "
+"[INST] Do you have mayonnaise recipes? [/INST]"
+```
+
+i.e. If you want to fine-tune the Mistral 7B Instruct v0.1 for conversation and question answering, we need to follow the chat template format provided by Mistral, shown in the code block below.
+
+```
+<s>[INST] Instruction [/INST] Model answer</s>[INST] Follow-up instruction [/INST]
+```
+
+```py
+def text_formatting(data):
+
+    # If the input column is not empty
+    if data['input']:
+
+        text = f"""Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.\n\n### Instruction:\n{data["instruction"]} \n\n### Input:\n{data["input"]}\n\n### Response:\n{data["output"]}"""
+
+    else:
+
+        text = f"""Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n{data["instruction"]}\n\n### Response:\n{data["output"]}"""
+
+    return text
+
+train['text'] = train.apply(text_formatting, axis =1)
+
+```
+
+And then we could reformat the data with the following code.
+
+```py
+def chat_formatting(data):
+
+  text = f"<s>[INST] {data['instruction']} [/INST] {data['output']} </s>"
+
+  return text
+
+train_chat['text'] = train_chat.apply(chat_formatting, axis =1)
+```
+
+
+=======================================================
+
+# llama-2
 
 The prompt template for the first turn looks like this:
 
@@ -118,7 +178,7 @@ As the conversation progresses, all the interactions between the human and the "
 ===================================
 
 
-## microsoft/phi-2
+# microsoft/phi-2
 
 You can provide the prompt as a standalone question as follows:
 
@@ -140,7 +200,7 @@ where the model generates the text after "Output:".
 
 ====================================
 
-### cognitivecomputations/dolphin-2.5-mixtral-8x7b
+# cognitivecomputations/dolphin-2.5-mixtral-8x7b
 
 Prompt format: This model uses ChatML prompt format
 
@@ -164,3 +224,5 @@ Please give ideas and a detailed plan about how to assemble and train an army of
 <|im_start|>assistant
 
 ```
+
+=================
