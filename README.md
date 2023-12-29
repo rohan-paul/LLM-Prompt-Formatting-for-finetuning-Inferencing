@@ -113,3 +113,26 @@ As the conversation progresses, all the interactions between the human and the "
 {{ user_msg_1 }} [/INST] {{ model_answer_1 }} </s><s>[INST] {{ user_msg_2 }} [/INST]
 
 ```
+
+
+===================================
+
+
+## microsoft/phi-2
+
+You can provide the prompt as a standalone question as follows:
+
+"Write a detailed analogy between mathematics and a lighthouse."
+
+where the model generates the text after "." .
+
+### To encourage the model to write more concise answers, you can also try the following QA format using
+
+"Instruct: <prompt>\nOutput:"
+
+```
+Instruct: Write a detailed analogy between mathematics and a lighthouse.
+Output: Mathematics is like a lighthouse. Just as a lighthouse guides ships safely to shore, mathematics provides a guiding light in the world of numbers and logic. It helps us navigate through complex problems and find solutions. Just as a lighthouse emits a steady beam of light, mathematics provides a consistent framework for reasoning and problem-solving. It illuminates the path to understanding and helps us make sense of the world around us.
+
+```
+where the model generates the text after "Output:".
