@@ -58,7 +58,7 @@ Be mindful of line breaks ( also end of text symbols if the LLM model has any in
 
 # Prompt format of mistralai/Mixtral-8x7B-v0.1 model
 
-That model is a base model, therefore it doesn't need to be prompted in a specific way in order to get started with the model. If you want to use the instruct version of the model, you need to follow the template that is on the model card:
+This is a base model, therefore it doesn't need to be prompted in a specific way in order to get started with the model. If you want to use the instruct version of the model, you need to follow the template that is on the model card:
 
 https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1#instruction-format
 
